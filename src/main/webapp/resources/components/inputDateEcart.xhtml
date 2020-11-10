@@ -26,9 +26,6 @@
             <h:outputText id="weekDay" binding="#{cc.weekDay}" styleClass="ui-inputgroup-addon" style="text-align: start"/>
             <p:calendar id="date"
                         binding="#{cc.date}"
-                        locale="fr"
-                        pattern="dd.MM.yyyy"
-                        mask="true"
                         navigator="true"
                         mindate="#{cc.attrs.reference}"
                         disabled="#{cc.attrs.disabled}"

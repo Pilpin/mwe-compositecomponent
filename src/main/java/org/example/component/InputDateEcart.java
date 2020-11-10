@@ -37,7 +37,7 @@ public class InputDateEcart extends UIInput implements NamingContainer {
         LocalDate value = (LocalDate) getValue();
 
         if (value != null) {
-            this.date.setValue(DateTimeFormatter.ofPattern(this.date.getPattern()).format(value));
+            this.date.setValue(value);
             weekDay.setValue(getWeekDayString(value));
             interval.setValue(ChronoUnit.DAYS.between(getReference(), value));
         }
@@ -53,7 +53,7 @@ public class InputDateEcart extends UIInput implements NamingContainer {
     public void updateDate(AjaxBehaviorEvent event) {
         Long ecart = Long.parseLong((String) this.interval.getValue());
         LocalDate date = (ecart == null) ? null : getReference().plus(ecart, ChronoUnit.DAYS);
-        this.date.setValue(DateTimeFormatter.ofPattern(this.date.getPattern()).format(date));
+        this.date.setValue(date);
         if (date != null) weekDay.setValue(getWeekDayString(date));
     }
 

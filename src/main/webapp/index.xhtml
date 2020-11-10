@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+    <h:head>
+        <title>Main page</title>
+    </h:head>
+    <h:body style="padding-top: 50px; background: lightgray;">
+        <h:form id="intervalForm">
+            <p:outputLabel for="next" label="Next date" />
+            <cc:inputDateEcart id="next"
+                               value="#{index.next}"
+                               reference="#{index.date}">
+                <p:ajax process="@this" update="intervalForm:test" />
+            </cc:inputDateEcart>
+            <p:outputPanel id="test" styleClass="test" style="margin-top: 15px">
+                Now : <h:outputText value="#{index.now}" style="font-weight: bold" /> -
+                Next : <h:outputText value="#{index.next}" style="font-weight: bold" />
+            </p:outputPanel>
+        </h:form>
+    </h:body>
+</html>

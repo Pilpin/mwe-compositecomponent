@@ -1,0 +1,41 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:h="http://xmlns.jcp.org/jsf/html"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+    <cc:interface componentType="inputDateEcart">
+        <cc:attribute name="value" type="java.time.LocalDate" shortDescription="Selected date" required="true" />
+        <cc:attribute name="reference" type="java.time.LocalDate" shortDescription="Reference date" required="true" />
+        <cc:attribute name="disabled" type="java.lang.Boolean" />
+        <cc:attribute name="style" type="java.lang.String" />
+        <cc:attribute name="styleClass" type="java.lang.String" />
+        <cc:clientBehavior name="change" default="true" targets="interval date" event="change" />
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{cc.clientId}" style="#{cc.attrs.style}" class="ui-inputgroup #{cc.attrs.styleClass}">
+            <span class="ui-inputgroup-addon">After</span>
+            <p:inputNumber id="interval"
+                           binding="#{cc.interval}"
+                           decimalPlaces="0"
+                           disabled="#{cc.attrs.disabled}"
+                           required="#{cc.attrs.required}"
+                           style="max-width: 50px;">
+                <p:ajax process="@this" update="date, weekDay" listener="#{cc.updateDate}" />
+            </p:inputNumber>
+            <h:outputText id="weekDay" binding="#{cc.weekDay}" styleClass="ui-inputgroup-addon" style="text-align: start"/>
+            <p:calendar id="date"
+                        binding="#{cc.date}"
+                        locale="fr"
+                        pattern="dd.MM.yyyy"
+                        mask="true"
+                        navigator="true"
+                        mindate="#{cc.attrs.reference}"
+                        disabled="#{cc.attrs.disabled}"
+                        required="#{cc.attrs.required}">
+                <p:ajax process="@this" update="interval, weekDay" listener="#{cc.updateInterval}" />
+                <p:ajax event="dateSelect" process="@this" update="interval, weekDay" listener="#{cc.updateInterval}"  />
+            </p:calendar>
+        </div>
+    </cc:implementation>
+</ui:component>
